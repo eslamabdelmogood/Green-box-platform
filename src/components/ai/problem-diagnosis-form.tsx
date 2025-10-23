@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { predictPart, type PredictPartOutput } from '@/ai/flows/predictive-part-identification';
+import { diagnoseProblem, type DiagnoseProblemOutput } from '@/ai/flows/diagnose-problem';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -18,28 +18,25 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { BrainCircuit, Loader2, Gauge, Wrench, AlertTriangle } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
+import { BrainCircuit, Loader2, ListChecks, Stethoscope, CheckCircle } from 'lucide-react';
 
 const formSchema = z.object({
   equipmentType: z.string().min(1, 'Equipment type is required.'),
-  operationalData: z.string().min(1, 'Operational data is required.'),
-  failureHistory: z.string().min(1, 'Failure history is required.'),
+  problemDescription: z.string().min(1, 'Problem description is required.'),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function PredictivePartForm() {
+export default function ProblemDiagnosisForm() {
   const [isPending, startTransition] = useTransition();
-  const [result, setResult] = useState<PredictPartOutput | null>(null);
+  const [result, setResult] = useState<DiagnoseProblemOutput | null>(null);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      equipmentType: 'CNC Milling Machine',
-      operationalData: 'Vibration: 0.8g, Temp: 85C, Spindle Speed: 12000rpm, Power Draw: 5kW',
-      failureHistory: 'Last 12 months: 2x Spindle bearing failure, 1x Coolant pump clog.',
+      equipmentType: 'Welding Robot B-3',
+      problemDescription: 'The robot arm is moving erratically and failing to complete welds accurately. Making a clicking sound on the main joint.',
     },
   });
 
@@ -47,13 +44,13 @@ export default function PredictivePartForm() {
     startTransition(async () => {
       setResult(null);
       try {
-        const prediction = await predictPart(values);
-        setResult(prediction);
+        const diagnosisResult = await diagnoseProblem(values);
+        setResult(diagnosisResult);
       } catch (error) {
         console.error(error);
         toast({
           title: 'Error',
-          description: 'Failed to get prediction. Please try again.',
+          description: 'Failed to get diagnosis. Please try again.',
           variant: 'destructive',
         });
       }
@@ -64,9 +61,9 @@ export default function PredictivePartForm() {
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Predict Required Spare Part</CardTitle>
+          <CardTitle>Diagnose Equipment Problem</CardTitle>
           <CardDescription>
-            Enter equipment data to predict potential failures and identify required parts.
+            Describe the problem to get a diagnosis and suggested solutions from our AI expert.
           </CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -87,25 +84,12 @@ export default function PredictivePartForm() {
               />
               <FormField
                 control={form.control}
-                name="operationalData"
+                name="problemDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Operational Data</FormLabel>
+                    <FormLabel>Problem Description</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Sensor readings, performance metrics..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="failureHistory"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Failure History</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Failure types, frequency, repair logs..." {...field} />
+                      <Textarea rows={5} placeholder="Describe the symptoms, error codes, and recent events..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +101,9 @@ export default function PredictivePartForm() {
                 {isPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                  <BrainCircuit className="mr-2 h-4 w-4" />
+                  <Stethoscope className="mr-2 h-4 w-4" />
                 )}
-                Analyze & Predict
+                Diagnose Problem
               </Button>
             </CardFooter>
           </form>
@@ -128,8 +112,8 @@ export default function PredictivePartForm() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Prediction Result</CardTitle>
-          <CardDescription>AI-powered failure prediction and part recommendation.</CardDescription>
+          <CardTitle>AI-Powered Diagnosis & Solutions</CardTitle>
+          <CardDescription>Expert analysis of the equipment issue.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-2 h-[410px] flex items-center justify-center">
             {isPending && <Loader2 className="h-10 w-10 animate-spin text-primary" />}
@@ -138,27 +122,24 @@ export default function PredictivePartForm() {
                 <div className="w-full space-y-4 animate-in fade-in-50">
                     <div className="space-y-2">
                         <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                            <AlertTriangle className="h-4 w-4 text-accent" />
-                            <span>Predicted Failure</span>
+                            <Stethoscope className="h-4 w-4 text-accent" />
+                            <span>Diagnosis</span>
                         </div>
-                        <p className="text-xl font-semibold">{result.predictedFailure}</p>
+                        <p className="text-lg font-semibold">{result.diagnosis}</p>
                     </div>
                      <div className="space-y-2">
                         <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                            <Wrench className="h-4 w-4 text-accent" />
-                            <span>Required Part</span>
+                            <ListChecks className="h-4 w-4 text-accent" />
+                            <span>Suggested Solutions</span>
                         </div>
-                        <p className="text-xl font-semibold">{result.requiredPart}</p>
-                    </div>
-                     <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                            <Gauge className="h-4 w-4 text-accent" />
-                            <span>Confidence Level</span>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Progress value={result.confidenceLevel * 100} className="w-[60%]" />
-                            <span className="font-semibold text-lg">{(result.confidenceLevel * 100).toFixed(0)}%</span>
-                        </div>
+                        <ul className="space-y-2 pl-5">
+                            {result.suggestedSolutions.map((solution, index) => (
+                                <li key={index} className="flex items-start gap-2">
+                                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 shrink-0" />
+                                    <span>{solution}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             )}

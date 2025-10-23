@@ -3,3 +3,4 @@ config();
 
 import '@/ai/flows/recommend-efficient-supplier.ts';
 import '@/ai/flows/predictive-part-identification.ts';
+import '@/ai/flows/diagnose-problem.ts';
