@@ -53,10 +53,10 @@ export const dashboardStats: DashboardStat[] = [
 ];
 
 export const procurementData = [
-  { month: "Jan", cost: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "Feb", cost: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "Mar", cost: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "Apr", cost: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "May", cost: Math.floor(Math.random() * 5000) + 1000 },
-  { month: "Jun", cost: Math.floor(Math.random() * 5000) + 1000 },
+  { month: "Jan", cost: 4250 },
+  { month: "Feb", cost: 3800 },
+  { month: "Mar", cost: 5100 },
+  { month: "Apr", cost: 2900 },
+  { month: "May", cost: 4600 },
+  { month: "Jun", cost: 3200 },
 ];
