@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import type { Machine } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertTriangle, Wrench, ListChecks, CheckCircle, Truck } from 'lucide-react';
+import { AlertTriangle, Wrench, ListChecks, CheckCircle, Truck, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type MaintenanceSuggestionCardProps = {
@@ -21,6 +21,7 @@ const suggestion = {
 };
 
 export default function MaintenanceSuggestionCard({ machine }: MaintenanceSuggestionCardProps) {
+  const partInMarketplace = { name: 'Heater Element XJ-5' }; // Mock, assume we can find it
   return (
     <Card className="border-destructive/50 bg-destructive/5 animate-in fade-in-50">
       <CardHeader>
@@ -34,14 +35,6 @@ export default function MaintenanceSuggestionCard({ machine }: MaintenanceSugges
               A critical failure has been detected. Immediate action is recommended.
             </CardDescription>
           </div>
-           {suggestion.requiredPart && (
-            <Button asChild variant="outline" className="shrink-0 border-destructive/30 hover:bg-destructive/10">
-              <Link href={`/ai-tools?tab=recommender&partName=${encodeURIComponent(suggestion.requiredPart)}`}>
-                <Truck className="mr-2 h-4 w-4" />
-                Find Supplier
-              </Link>
-            </Button>
-          )}
         </div>
       </CardHeader>
       <CardContent className="grid gap-6 md:grid-cols-3">
@@ -67,7 +60,23 @@ export default function MaintenanceSuggestionCard({ machine }: MaintenanceSugges
                 ))}
             </ul>
         </div>
-      </CardContent>
+        </CardContent>
+        <div className="flex justify-end gap-2 px-6 pb-6">
+            {partInMarketplace && (
+                <Button>
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    Buy Now
+                </Button>
+            )}
+            {suggestion.requiredPart && (
+            <Button asChild variant="outline">
+              <Link href={`/ai-tools?tab=recommender&partName=${encodeURIComponent(suggestion.requiredPart)}`}>
+                <Truck className="mr-2 h-4 w-4" />
+                Find Supplier
+              </Link>
+            </Button>
+          )}
+        </div>
     </Card>
   );
 }
