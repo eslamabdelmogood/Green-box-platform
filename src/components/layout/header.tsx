@@ -2,9 +2,10 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { usePersona, type PersonaType } from "@/context/persona-context";
+import { usePersona } from "@/context/persona-context";
 import { Building, Plane, Ship, Warehouse } from 'lucide-react';
+import type { PersonaType } from "@/context/persona-context";
+
 
 const personaIcons: Record<PersonaType, React.ElementType> = {
   Port: Ship,
@@ -18,7 +19,7 @@ type HeaderProps = {
 };
 
 export default function Header({ title }: HeaderProps) {
-  const { persona, setPersonaType } = usePersona();
+  const { persona } = usePersona();
   
   const Icon = personaIcons[persona.type];
 
@@ -30,17 +31,6 @@ export default function Header({ title }: HeaderProps) {
       <Icon className="h-6 w-6 text-primary" />
       <h1 className="text-xl md:text-2xl font-semibold">{title}</h1>
       <div className="ml-auto flex items-center gap-4">
-        <Select value={persona.type} onValueChange={(value: PersonaType) => setPersonaType(value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select Persona" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Port">Port</SelectItem>
-            <SelectItem value="Airport">Airport</SelectItem>
-            <SelectItem value="Factory">Factory</SelectItem>
-            <SelectItem value="Vessel">Vessel</SelectItem>
-          </SelectContent>
-        </Select>
         <Avatar>
           <AvatarImage src="https://picsum.photos/seed/user/40/40" />
           <AvatarFallback>U</AvatarFallback>
