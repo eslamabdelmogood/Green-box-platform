@@ -1,16 +1,20 @@
+'use client';
 
 import MainLayout from '@/components/layout/main-layout';
 import Header from '@/components/layout/header';
 import StatsCard from '@/components/dashboard/stats-card';
-import { dashboardStats, machineStatusData, procurementData } from '@/lib/data';
+import { usePersona } from '@/context/persona-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ProcurementChart from '@/components/dashboard/procurement-chart';
 import MachineStatusTable from '@/components/dashboard/machine-status-table';
 
 export default function DashboardPage() {
+  const { persona } = usePersona();
+  const { title, dashboardStats, machineStatusData, procurementData, spendTitle, assetStatusTitle } = persona;
+  
   return (
     <MainLayout>
-      <Header title="Port of Singapore" />
+      <Header title={title} />
       <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {dashboardStats.map((stat) => (
@@ -20,7 +24,7 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>Logistics Spend Overview</CardTitle>
+              <CardTitle>{spendTitle}</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
               <ProcurementChart data={procurementData} />
@@ -28,7 +32,7 @@ export default function DashboardPage() {
           </Card>
           <Card className="col-span-4 lg:col-span-3">
             <CardHeader>
-              <CardTitle>Asset Status</CardTitle>
+              <CardTitle>{assetStatusTitle}</CardTitle>
             </CardHeader>
             <CardContent>
               <MachineStatusTable data={machineStatusData} />

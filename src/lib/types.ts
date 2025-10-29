@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { personaData } from './data';
 
 export type Part = {
   id: string;
@@ -26,3 +27,5 @@ export type DashboardStat = {
   changeType: "increase" | "decrease";
   icon: LucideIcon;
 };
+
+export type PersonaData = (typeof personaData)['Port'];
