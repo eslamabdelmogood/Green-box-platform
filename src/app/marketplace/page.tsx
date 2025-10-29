@@ -6,7 +6,7 @@ import { parts } from '@/lib/data';
 export default function MarketplacePage() {
   return (
     <MainLayout>
-      <Header title="B2B Marketplace" />
+      <Header title="Spares Marketplace" />
       <main className="flex-1 space-y-4 p-4 md:p-8">
         <PartList initialParts={parts} />
       </main>

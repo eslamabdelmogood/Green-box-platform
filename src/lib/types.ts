@@ -9,14 +9,14 @@ export type Part = {
   imageId: string;
 };
 
-export type MachineStatus = "Operational" | "Warning" | "Failure";
+export type AssetStatus = "Operational" | "Maintenance Due" | "Offline";
 
-export type Machine = {
+export type Asset = {
   id: string;
   name: string;
   location: string;
-  status: MachineStatus;
-  uptime: string;
+  status: AssetStatus;
+  lastService: string;
 };
 
 export type DashboardStat = {

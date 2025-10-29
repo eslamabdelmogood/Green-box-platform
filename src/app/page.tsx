@@ -9,11 +9,11 @@ import MachineStatusTable from '@/components/dashboard/machine-status-table';
 import MaintenanceSuggestionCard from '@/components/dashboard/maintenance-suggestion-card';
 
 export default function DashboardPage() {
-  const failingMachine = machineStatusData.find(m => m.status === 'Failure');
+  const failingMachine = machineStatusData.find(m => m.status === 'Offline');
 
   return (
     <MainLayout>
-      <Header title="Dashboard" />
+      <Header title="Port of Singapore" />
       <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         {failingMachine && (
           <MaintenanceSuggestionCard machine={failingMachine} />
@@ -26,7 +26,7 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>Procurement Overview</CardTitle>
+              <CardTitle>Logistics Spend Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
               <ProcurementChart data={procurementData} />
@@ -34,7 +34,7 @@ export default function DashboardPage() {
           </Card>
           <Card className="col-span-4 lg:col-span-3">
             <CardHeader>
-              <CardTitle>Machine Status</CardTitle>
+              <CardTitle>Asset Status</CardTitle>
             </CardHeader>
             <CardContent>
               <MachineStatusTable data={machineStatusData} />

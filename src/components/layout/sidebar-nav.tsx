@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/marketplace', icon: Wrench, label: 'Marketplace' },
+  { href: '/marketplace', icon: Wrench, label: 'Spares' },
   { href: '/ai-tools', icon: BrainCircuit, label: 'AI Tools' },
 ];
 
@@ -30,7 +30,7 @@ export function SidebarNav() {
         <div className="flex items-center gap-2 p-1">
           <Logo className="w-8 h-8 text-primary" />
           <span className="text-lg font-semibold group-data-[collapsible=icon]:hidden">
-            Green Box
+            Port Authority
           </span>
         </div>
       </SidebarHeader>
@@ -55,7 +55,7 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter>
         <div className="text-xs text-muted-foreground p-2 group-data-[collapsible=icon]:hidden">
-          <p>&copy; {new Date().getFullYear()} Green Box Marketplace</p>
+          <p>&copy; {new Date().getFullYear()} Global Port Authority</p>
         </div>
       </SidebarFooter>
     </>

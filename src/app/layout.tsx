@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Green Box Marketplace',
-  description: 'Intelligent Industrial Marketplace Platform',
+  title: 'Global Port Authority',
+  description: 'Intelligent Port Operations & Logistics Platform',
 };
 
 export default function RootLayout({

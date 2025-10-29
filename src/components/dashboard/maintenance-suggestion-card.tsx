@@ -3,30 +3,30 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import type { Machine } from '@/lib/types';
+import type { Asset } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, Wrench, ListChecks, CheckCircle, Truck, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PurchaseOrderDialog from './purchase-order-dialog';
 
 type MaintenanceSuggestionCardProps = {
-  machine: Machine;
+  machine: Asset;
 };
 
 // Hardcoded suggestion for the failing machine
 const suggestion = {
-  diagnosis: 'Inconsistent sealing temperature causing package rejection.',
+  diagnosis: 'Hydraulic system pressure is below optimal range.',
   suggestedSolutions: [
-    'Inspect heater element for wear and damage.',
-    'Replace the primary heater element.',
-    'Recalibrate sealing temperature and pressure settings.',
+    'Inspect hydraulic lines for leaks.',
+    'Replace the primary hydraulic pump.',
+    'Recalibrate system pressure and test.',
   ],
-  requiredPart: 'Heater Element XJ-5',
+  requiredPart: 'Hydraulic Pump',
 };
 
 export default function MaintenanceSuggestionCard({ machine }: MaintenanceSuggestionCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const partInMarketplace = { name: 'Heater Element XJ-5', price: 150 }; // Mock, assume we can find it
+  const partInMarketplace = { name: 'Hydraulic Pump', price: 1200.50 }; // Mock, assume we can find it
 
   return (
     <>
