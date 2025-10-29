@@ -14,11 +14,11 @@ export const parts: Part[] = [
 
 export const machineStatusData: Asset[] = [
     { id: 'asset-01', name: 'Quay Crane 01', location: 'Terminal 1, Berth 3', status: 'Operational', lastService: '2024-05-12' },
-    { id: 'asset-02', name: 'Vessel "Oceanic"', location: 'Anchorage B', status: 'Maintenance Due', lastService: '2024-03-01' },
+    { id: 'asset-02', name: 'Vessel "Oceanic"', location: 'Anchorage B', status: 'Operational', lastService: '2024-06-01' },
     { id: 'asset-03', name: 'RTG Crane 05', location: 'Yard 7', status: 'Operational', lastService: '2024-06-02' },
-    { id: 'asset-04', name: 'Pilot Boat "Vigilant"', location: 'Pilot Pier', status: 'Offline', lastService: '2024-05-20' },
+    { id: 'asset-04', name: 'Pilot Boat "Vigilant"', location: 'Pilot Pier', status: 'Operational', lastService: '2024-06-20' },
     { id: 'asset-05', name: 'Straddle Carrier 12', location: 'Terminal 2, Row 4', status: 'Operational', lastService: '2024-05-28' },
-    { id: 'asset-06', name: 'Tugboat "Titan"', location: 'Tug Pen 2', status: 'Maintenance Due', lastService: '2024-04-15' },
+    { id: 'asset-06', name: 'Tugboat "Titan"', location: 'Tug Pen 2', status: 'Operational', lastService: '2024-06-15' },
 ];
 
 export const dashboardStats: DashboardStat[] = [
