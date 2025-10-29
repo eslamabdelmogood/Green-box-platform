@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { PersonaProvider } from '@/context/persona-context';
 
 export const metadata: Metadata = {
-  title: 'Global Port Authority',
-  description: 'Intelligent Port Operations & Logistics Platform',
+  title: 'Green Box',
+  description: 'Intelligent Operations & Logistics Platform',
 };
 
 export default function RootLayout({

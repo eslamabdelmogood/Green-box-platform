@@ -40,7 +40,7 @@ export function SidebarNav() {
         <div className="flex items-center gap-2 p-1">
           <Logo className="w-8 h-8 text-primary" />
           <span className="text-lg font-semibold group-data-[collapsible=icon]:hidden">
-            Port Authority
+            Green Box
           </span>
         </div>
       </SidebarHeader>
@@ -91,7 +91,7 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter>
         <div className="text-xs text-muted-foreground p-2 group-data-[collapsible=icon]:hidden">
-          <p>&copy; {new Date().getFullYear()} Global Port Authority</p>
+          <p>&copy; {new Date().getFullYear()} Green Box</p>
         </div>
       </SidebarFooter>
     </>
