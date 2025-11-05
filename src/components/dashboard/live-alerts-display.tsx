@@ -1,7 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useCollection, useFirestore } from '@/firebase';
+import { useMemoFirebase, useCollection, useFirestore } from '@/firebase';
 import { collection } from 'firebase/firestore';
 import type { CriticalAlert } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -60,7 +59,7 @@ function AlertCard({ alert }: { alert: CriticalAlert }) {
 
 export default function LiveAlertsDisplay() {
   const firestore = useFirestore();
-  const alertsQuery = useMemo(() => {
+  const alertsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return collection(firestore, 'Critical_Alerts');
   }, [firestore]);
