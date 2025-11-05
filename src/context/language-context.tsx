@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Globe } from 'lucide-react';
 
-export type Language = 'en' | 'es';
+export type Language = 'en' | 'es' | 'ar';
 
 interface LanguageContextType {
   language: Language;
@@ -57,6 +57,7 @@ export function LanguageSwitcher() {
             <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as Language)}>
                 <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value="es">Español</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="ar">العربية</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
         </DropdownMenuContent>
         </DropdownMenu>

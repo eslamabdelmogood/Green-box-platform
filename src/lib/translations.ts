@@ -34,5 +34,23 @@ export const translations = {
         'Spares Marketplace': 'Mercado de Repuestos',
         'Green Box Nodes': 'Nodos Green Box',
         'Share App': 'Compartir App',
+    },
+    ar: {
+        'Green Box Monitoring': 'مراقبة الصندوق الأخضر',
+        'Active Green Box Nodes': 'عقد الصندوق الأخضر النشطة',
+        'New Predictive Alerts (24h)': 'تنبيهات تنبؤية جديدة (24 ساعة)',
+        'Average MTTR': 'متوسط وقت الإصلاح',
+        'Overall System Uptime': 'وقت تشغيل النظام الإجمالي',
+        'Total Operational': 'إجمالي التشغيل',
+        'Requires Attention': 'يتطلب الانتباه',
+        'Mean Time To Repair': 'متوسط وقت الإصلاح',
+        'Last 30 Days': 'آخر 30 يومًا',
+        'Active Predictive Alerts': 'تنبيهات تنبؤية نشطة',
+        'Balloon Node Status': 'حالة عقدة البالون',
+        'Intelligent Tools': 'الأدوات الذكية',
+        'Live Critical Alerts': 'تنبيهات حرجة مباشرة',
+        'Spares Marketplace': 'سوق قطع الغيار',
+        'Green Box Nodes': 'عقد الصندوق الأخضر',
+        'Share App': 'مشاركة التطبيق',
     }
 };
