@@ -4,8 +4,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MainLayout from '@/components/layout/main-layout';
 import Header from '@/components/layout/header';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import MaintenanceAdvisorForm from '@/components/ai/maintenance-advisor-form';
+import MaintenanceChat from '@/components/ai/maintenance-chat';
 
 function AIToolsContent() {
   const searchParams = useSearchParams();
@@ -15,18 +14,11 @@ function AIToolsContent() {
   return (
     <MainLayout>
       <Header title="Intelligent Tools" />
-      <main className="flex-1 space-y-4 p-4 md:p-8">
-        <Tabs defaultValue="advisor" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="advisor">Maintenance Advisor</TabsTrigger>
-          </TabsList>
-          <TabsContent value="advisor" className="space-y-4">
-            <MaintenanceAdvisorForm
-              initialEquipmentType={equipmentType}
-              initialProblemDescription={problemDescription}
-            />
-          </TabsContent>
-        </Tabs>
+      <main className="flex-1 flex flex-col p-4 md:p-8">
+        <MaintenanceChat
+          initialEquipmentType={equipmentType}
+          initialProblemDescription={problemDescription}
+        />
       </main>
     </MainLayout>
   );

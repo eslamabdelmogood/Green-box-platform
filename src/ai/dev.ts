@@ -2,4 +2,4 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/maintenance-advisor.ts';
+import '@/ai/flows/conversational-maintenance.ts';
