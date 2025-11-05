@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition, useEffect, useRef } from 'react';
@@ -10,12 +11,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Send, Loader2, User, Bot, Wrench, AlertTriangle } from 'lucide-react';
+import { Send, Loader2, User, Bot, Wrench } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Textarea } from '../ui/textarea';
+import { useLanguage } from '@/context/language-context';
 
 const chatSchema = z.object({
   message: z.string().min(1, 'Message cannot be empty.'),
@@ -47,8 +49,8 @@ export default function MaintenanceChat({
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [hasStarted, setHasStarted] = useState(false);
+  const { language } = useLanguage();
 
-  // State to hold the context for the current conversation
   const [equipmentType, setEquipmentType] = useState(initialEquipmentTypeProp);
   const [problemDescription, setProblemDescription] = useState(initialProblemDescriptionProp);
 
@@ -75,14 +77,15 @@ export default function MaintenanceChat({
     setEquipmentType(eqType);
     setProblemDescription(probDesc);
     setHasStarted(true);
-    setMessages([{ role: 'user', content: initialUserMessage }]);
+    if(initialUserMessage) setMessages([{ role: 'user', content: initialUserMessage }]);
     
     startTransition(async () => {
       try {
         const response = await conversationalMaintenanceAdvisor({
           equipmentType: eqType,
           problemDescription: probDesc,
-          history: [], 
+          history: initialUserMessage ? [{ role: 'user', content: initialUserMessage }] : [], 
+          language: language,
         });
         setMessages((prev) => [...prev, { role: 'model', content: response }]);
         scrollToBottom();
@@ -98,13 +101,12 @@ export default function MaintenanceChat({
     });
   }
 
-  // Effect to auto-start conversation if initial props are provided
   useEffect(() => {
-    if (initialProblemDescriptionProp && !hasStarted) {
+    if (initialEquipmentTypeProp && initialProblemDescriptionProp && !hasStarted) {
       const userMessage = `I have a problem with my ${initialEquipmentTypeProp}. Here's the issue: ${initialProblemDescriptionProp}`;
       startConversation(initialEquipmentTypeProp, initialProblemDescriptionProp, userMessage);
     }
-  }, [initialProblemDescriptionProp, initialEquipmentTypeProp, hasStarted]);
+  }, [initialEquipmentTypeProp, initialProblemDescriptionProp, hasStarted]);
 
 
   const handleFollowUpSubmit = (values: ChatFormValues) => {
@@ -119,6 +121,7 @@ export default function MaintenanceChat({
           equipmentType: equipmentType,
           problemDescription: problemDescription,
           history: [...messages, userMessage],
+          language: language,
         });
         setMessages((prev) => [...prev, { role: 'model', content: response }]);
         scrollToBottom();
@@ -129,7 +132,7 @@ export default function MaintenanceChat({
           description: 'Failed to get a response. Please try again.',
           variant: 'destructive',
         });
-        setMessages(messages => messages.slice(0, -1)); // Remove the user message on failure
+        setMessages(messages => messages.slice(0, -1));
       }
     });
   };
@@ -140,17 +143,24 @@ export default function MaintenanceChat({
   };
   
   const extractPartName = (text: string): string | null => {
-    const partKeywords = ['part required:', 'required part:', 'you will need a', 'replace the'];
+    const partKeywords = [
+        'part required:', 'required part:', 'you will need a', 'replace the', 
+        'pieza requerida:', 'necesitará una', 'reemplace la',
+        'الجزء المطلوب:', 'ستحتاج إلى', 'استبدل'
+    ];
     const lowerText = text.toLowerCase();
     
     for (const keyword of partKeywords) {
       const index = lowerText.indexOf(keyword);
       if (index !== -1) {
         let potentialPart = text.substring(index + keyword.length).trim();
-        potentialPart = potentialPart.split(/[\n.,]/)[0].trim();
-        potentialPart = potentialPart.replace(/^['"]|['"]$/g, '');
+        potentialPart = potentialPart.split(/[\n.,¡!¿?]/)[0].trim();
+        potentialPart = potentialPart.replace(/^['"“]|['"”]$/g, ''); // Also remove curly quotes
         if (potentialPart.length > 0 && potentialPart.length < 50) {
-          return potentialPart;
+          // Simple filter for common non-part words, can be improved
+          if (!['the','a','an','un','una'].includes(potentialPart.toLowerCase())) {
+            return potentialPart;
+          }
         }
       }
     }
@@ -313,5 +323,3 @@ export default function MaintenanceChat({
     </Card>
   );
 }
-
-    

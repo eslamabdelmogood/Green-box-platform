@@ -17,14 +17,15 @@ const MessageSchema = z.object({
   content: z.string(),
 });
 
-const ConversationalMaintenanceInputSchema = z.object({
+export const ConversationalMaintenanceInputSchema = z.object({
   equipmentType: z.string().describe('The type of equipment experiencing the problem.'),
   problemDescription: z.string().describe('The initial, detailed description of the problem.'),
   history: z.array(MessageSchema).describe('The history of the conversation so far.'),
+  language: z.enum(['en', 'es', 'ar']).describe('The language for the AI to respond in.'),
 });
 export type ConversationalMaintenanceInput = z.infer<typeof ConversationalMaintenanceInputSchema>;
 
-const ConversationalMaintenanceOutputSchema = z.string().describe("The model's response to the user's message.");
+export const ConversationalMaintenanceOutputSchema = z.string().describe("The model's response to the user's message.");
 export type ConversationalMaintenanceOutput = z.infer<typeof ConversationalMaintenanceOutputSchema>;
 
 
@@ -35,6 +36,8 @@ export async function conversationalMaintenanceAdvisor(input: ConversationalMain
     input: { schema: ConversationalMaintenanceInputSchema },
     output: { format: 'text' },
     prompt: `You are an expert industrial maintenance technician acting as a helpful AI assistant. Your goal is to help the user diagnose and solve an equipment problem through conversation.
+
+You MUST respond in the language specified by the user. The target language is: {{{language}}}.
 
 You have been given the following context about the equipment and the initial problem:
 - Equipment Type: {{{equipmentType}}}
