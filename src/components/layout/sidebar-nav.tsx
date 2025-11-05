@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Wrench, BrainCircuit, Radio, Server } from 'lucide-react';
+import { LayoutDashboard, Wrench, BrainCircuit, Radio, Server, Share2 } from 'lucide-react';
 
 import {
   SidebarHeader,
@@ -20,6 +20,7 @@ const navItems = [
   { href: '/marketplace', icon: Wrench, label: 'Spares' },
   { href: '/ai-tools', icon: BrainCircuit, label: 'AI Tools' },
   { href: '/live-alerts', icon: Radio, label: 'Live Alerts' },
+  { href: '/share', icon: Share2, label: 'Share' },
 ];
 
 export function SidebarNav() {
