@@ -1,3 +1,4 @@
+
 import type { Part, Asset, GreenBoxNode, Supplier, PartSupplier } from '@/lib/types';
 import { TrendingUp, Ship, Anchor, Warehouse, Plane, Factory, Container, Wrench, Tornado, ShieldAlert } from 'lucide-react';
 
@@ -36,4 +37,95 @@ export const partSuppliers: PartSupplier[] = [
     { partId: 'part-005', supplierId: 'sup-01', price: 450, leadTime: 3, spec: '10 micron, high-flow' },
     { partId: 'part-005', supplierId: 'sup-03', price: 475, leadTime: 2, spec: '10 micron, spin-on' },
     { partId: 'part-006', supplierId: 'sup-02', price: 2750, leadTime: 18, spec: 'IMO Certified, NMEA 2000' },
-    { partId
+    { partId: 'part-006', supplierId: 'sup-04', price: 2900, leadTime: 14, spec: 'GPS/GLONASS, AIS Class B' },
+    { partId: 'part-007', supplierId: 'sup-01', price: 7400, leadTime: 25, spec: '-30C to +30C range, R452A' },
+    { partId: 'part-007', supplierId: 'sup-03', price: 7650, leadTime: 22, spec: '-35C to +30C range, R404A' },
+    { partId: 'part-008', supplierId: 'sup-02', price: 1750, leadTime: 30, spec: '1500mm x 750mm, Black Rubber' },
+    { partId: 'part-008', supplierId: 'sup-04', price: 1850, leadTime: 15, spec: '1500mm x 750mm, Grey Non-Marking' },
+];
+
+export const procurementData = [
+  { month: 'Jan', cost: 45000 },
+  { month: 'Feb', cost: 52000 },
+  { month: 'Mar', cost: 48000 },
+  { month: 'Apr', cost: 61000 },
+  { month: 'May', cost: 55000 },
+  { month: 'Jun', cost: 72000 },
+];
+
+export const assets: Asset[] = [
+  { id: 'QC-01', name: 'Quay Crane 1', location: 'Berth 3', status: 'Operational', lastService: '2024-05-10T00:00:00.000Z' },
+  { id: 'RTG-04', name: 'RTG Crane 4', location: 'Yard 7', status: 'Maintenance Due', lastService: '2024-03-22T00:00:00.000Z' },
+  { id: 'STS-02', name: 'Ship-to-Shore 2', location: 'Berth 1', status: 'Offline', lastService: '2024-06-01T00:00:00.000Z' },
+  { id: 'QC-03', name: 'Quay Crane 3', location: 'Berth 5', status: 'Operational', lastService: '2024-06-15T00:00:00.000Z' },
+];
+
+export const events = [
+    {
+        title: "Port Operations",
+        description: "Routine container movements and vessel traffic.",
+        time: "Ongoing",
+        icon: Ship,
+        status: "Normal",
+        color: "bg-blue-500",
+    },
+    {
+        title: "Weather Anomaly",
+        description: "High winds detected in Sector B. Crane operations restricted.",
+        time: "3 hours ago",
+        icon: Tornado,
+        status: "Active",
+        color: "bg-yellow-500",
+    },
+    {
+        title: "Equipment Failure",
+        description: "Quay Crane 2 hydraulic system offline. Maintenance dispatched.",
+        time: "1 hour ago",
+        icon: Wrench,
+        status: "Critical",
+        color: "bg-red-500",
+    },
+    {
+        title: "Security Alert",
+        description: "Unidentified drone detected near the north perimeter.",
+        time: "15 mins ago",
+        icon: ShieldAlert,
+        status: "High",
+        color: "bg-orange-500",
+    },
+];
+
+export const kpis = [
+    {
+        title: "Container Throughput",
+        value: "1,240 TEUs",
+        change: "+5.2%",
+        changeType: "increase",
+        icon: TrendingUp,
+        description: "24-hour volume vs. previous period.",
+    },
+    {
+        title: "Vessel Turnaround Time",
+        value: "18.5 hours",
+        change: "-7.5%",
+        changeType: "increase",
+        icon: Anchor,
+        description: "Average time from arrival to departure.",
+    },
+    {
+        title: "Yard Capacity",
+        value: "85%",
+        change: "+3.0%",
+        changeType: "decrease",
+        icon: Container,
+        description: "Current utilization of container storage.",
+    },
+    {
+        title: "Equipment Availability",
+        value: "92%",
+        change: "-4.0%",
+        changeType: "decrease",
+        icon: Wrench,
+        description: "Percentage of critical equipment operational.",
+    },
+];

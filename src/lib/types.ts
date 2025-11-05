@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from "lucide-react";
 
 export type Part = {
@@ -45,4 +46,18 @@ export type GreenBoxNode = {
   id: string;
   location: string;
   status: "Active" | "Inactive";
+};
+
+export type Supplier = {
+  id: string;
+  name: string;
+  country: string;
+};
+
+export type PartSupplier = {
+  partId: string;
+  supplierId: string;
+  price: number;
+  leadTime: number;
+  spec: string;
 };

@@ -174,4 +174,10 @@ export default function MaintenanceAdvisorForm({ initialEquipmentType = '', init
                           </div>
                       </div>
                     )}
-                
+                </div>
+            )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
