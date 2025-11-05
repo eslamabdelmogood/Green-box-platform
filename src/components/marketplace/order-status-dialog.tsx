@@ -62,7 +62,7 @@ export default function OrderStatusDialog({ isOpen, onOpenChange, partName }: Or
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-4 left-4 text-white">
                 <p className="font-bold text-lg">Live Tracking</p>
-                <p className="text-sm">Delivery via Autonomous Rocket</p>
+                <p className="text-sm">Delivery via Autonomous Drone</p>
               </div>
           </div>
           <div className="space-y-4">
@@ -95,7 +95,7 @@ export default function OrderStatusDialog({ isOpen, onOpenChange, partName }: Or
                 <Rocket className="h-6 w-6 text-primary"/>
                 <div>
                     <p className="text-sm text-muted-foreground">Delivery Method</p>
-                    <p className="font-semibold text-lg">Rocket</p>
+                    <p className="font-semibold text-lg">Drone</p>
                 </div>
              </div>
           </div>
