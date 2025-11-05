@@ -5,39 +5,41 @@ import Header from '@/components/layout/header';
 import StatsCard from '@/components/dashboard/stats-card';
 import { usePersona } from '@/context/persona-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import ProcurementChart from '@/components/dashboard/procurement-chart';
-import MachineStatusTable from '@/components/dashboard/machine-status-table';
+import ActiveAlertsTable from '@/components/dashboard/active-alerts-table';
+import NodeStatusCard from '@/components/dashboard/node-status-card';
+import { AlertTriangle, Bot, Gauge, Signal } from 'lucide-react';
+
+const newDashboardStats = [
+  { title: 'Active Green Box Nodes', value: '45/50', change: 'Total Operational', changeType: 'increase', icon: Bot },
+  { title: 'New Predictive Alerts (24h)', value: '5', change: 'Requires Attention', changeType: 'decrease', icon: AlertTriangle },
+  { title: 'Average MTTR', value: '18 min', change: 'Mean Time To Repair', changeType: 'increase', icon: Gauge },
+  { title: 'Overall System Uptime', value: '99.9%', change: 'Last 30 Days', changeType: 'increase', icon: Signal },
+];
 
 export default function DashboardPage() {
   const { persona } = usePersona();
-  const { title, dashboardStats, machineStatusData, procurementData, spendTitle, assetStatusTitle } = persona;
   
   return (
     <MainLayout>
-      <Header title={title} />
+      <Header title="Green Box Monitoring" />
       <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {dashboardStats.map((stat) => (
+          {newDashboardStats.map((stat) => (
             <StatsCard key={stat.title} {...stat} />
           ))}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>{spendTitle}</CardTitle>
-            </CardHeader>
-            <CardContent className="pl-2">
-              <ProcurementChart data={procurementData} />
-            </CardContent>
-          </Card>
-          <Card className="col-span-4 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>{assetStatusTitle}</CardTitle>
+              <CardTitle>Active Predictive Alerts</CardTitle>
             </CardHeader>
             <CardContent>
-              <MachineStatusTable data={machineStatusData} />
+              <ActiveAlertsTable />
             </CardContent>
           </Card>
+          <div className="col-span-4 lg:col-span-3">
+            <NodeStatusCard />
+          </div>
         </div>
       </main>
     </MainLayout>
