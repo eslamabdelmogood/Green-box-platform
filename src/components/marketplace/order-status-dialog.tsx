@@ -1,10 +1,11 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Drone, Package, Warehouse, Factory, Clock } from 'lucide-react';
+import { CheckCircle, Rocket, Package, Warehouse, Factory, Clock } from 'lucide-react';
 import { add, format } from 'date-fns';
 import Image from 'next/image';
 
@@ -72,7 +73,7 @@ export default function OrderStatusDialog({ isOpen, onOpenChange, partName }: Or
                     <span>Warehouse</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Drone className="h-5 w-5 text-primary animate-pulse" />
+                    <Rocket className="h-5 w-5 text-primary animate-pulse" />
                     <span>In Transit</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -91,7 +92,7 @@ export default function OrderStatusDialog({ isOpen, onOpenChange, partName }: Or
                 </div>
              </div>
              <div className="flex items-center gap-3">
-                <Drone className="h-6 w-6 text-primary"/>
+                <Rocket className="h-6 w-6 text-primary"/>
                 <div>
                     <p className="text-sm text-muted-foreground">Delivery Method</p>
                     <p className="font-semibold text-lg">Drone</p>
