@@ -1,0 +1,82 @@
+/**
+ * @fileoverview Firestore Security Rules for the Green Box Marketplace platform.
+ *
+ * Core Philosophy:
+ * This ruleset provides open read access to spare parts, suppliers, equipment failure predictions,
+ * and orders, while restricting write access to prevent unauthorized modifications.  All collections
+ * are treated as publicly readable catalogs, with the assumption that write access is managed
+ * through a separate, trusted backend system or process.
+ *
+ * Data Structure:
+ * - /spare_parts/{sparePartId}: Collection of spare parts.
+ * - /suppliers/{supplierId}: Collection of suppliers.
+ * - /equipment_failure_predictions/{equipmentFailurePredictionId}: Collection of equipment failure predictions.
+ * - /orders/{orderId}: Collection of orders.
+ *
+ * Key Security Decisions:
+ * - Public read access for all collections.
+ * - No write access granted directly to clients (create, update, delete are all denied).
+ * - No user-specific data or ownership models are implemented in this ruleset.
+ *   All authorization is deferred to a backend process.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows anyone to read spare parts, but restricts creation, updates, and deletion.
+     * @path /spare_parts/{sparePartId}
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Provides public read access while preventing unauthorized modifications.
+     */
+    match /spare_parts/{sparePartId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read suppliers, but restricts creation, updates, and deletion.
+     * @path /suppliers/{supplierId}
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Provides public read access while preventing unauthorized modifications.
+     */
+    match /suppliers/{supplierId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read equipment failure predictions, but restricts creation, updates, and deletion.
+     * @path /equipment_failure_predictions/{equipmentFailurePredictionId}
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Provides public read access while preventing unauthorized modifications.
+     */
+    match /equipment_failure_predictions/{equipmentFailurePredictionId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read orders, but restricts creation, updates, and deletion.
+     * @path /orders/{orderId}
+     * @allow (get, list)
+     * @deny (create, update, delete)
+     * @principle Provides public read access while preventing unauthorized modifications.
+     */
+    match /orders/{orderId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
