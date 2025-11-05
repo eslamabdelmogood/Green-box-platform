@@ -2,8 +2,15 @@
 
 import { firebaseConfig } from '@/firebase/config';
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore'
+import { Auth, getAuth, signInAnonymously, onAuthStateChanged, User } from 'firebase/auth';
+import { Firestore, getFirestore } from 'firebase/firestore'
+import { setDocumentNonBlocking, addDocumentNonBlocking, updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { initiateAnonymousSignIn, initiateEmailSignUp, initiateEmailSignIn } from '@/firebase/non-blocking-login';
+import { useCollection } from '@/firebase/firestore/use-collection';
+import { useDoc } from '@/firebase/firestore/use-doc';
+import { useUser } from '@/firebase/provider';
+import { FirebaseProvider, FirebaseClientProvider, useFirebase, useFirebaseApp, useFirestore } from '@/firebase/provider';
+
 
 // IMPORTANT: DO NOT MODIFY THIS FUNCTION
 export function initializeFirebase() {

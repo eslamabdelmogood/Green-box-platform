@@ -26,3 +26,16 @@ export type DashboardStat = {
   changeType: "increase" | "decrease";
   icon: LucideIcon;
 };
+
+export type CriticalAlert = {
+  id: string;
+  asset_ID: string;
+  part_PN: string;
+  current_reading: number;
+  status: string;
+  reason?: string;
+  last_simulated_update?: {
+    seconds: number;
+    nanoseconds: number;
+  };
+};
