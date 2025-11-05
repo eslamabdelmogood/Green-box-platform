@@ -43,27 +43,31 @@ export default function SharePage() {
               {isLoading ? (
                 <Skeleton className="h-full w-full" />
               ) : (
-                <Image
-                  src={qrCodeUrl}
-                  alt="QR Code for the application"
-                  width={256}
-                  height={256}
-                  className="rounded-lg border"
-                />
+                qrCodeUrl && (
+                  <Image
+                    src={qrCodeUrl}
+                    alt="QR Code for the application"
+                    width={256}
+                    height={256}
+                    className="rounded-lg border"
+                  />
+                )
               )}
             </div>
             {isLoading ? (
                 <p className="text-sm text-muted-foreground">Generating QR code...</p>
             ) : (
-                <Link
-                    href={appUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                >
-                    {appUrl}
-                    <ExternalLink className="h-4 w-4" />
-                </Link>
+                appUrl && (
+                    <Link
+                        href={appUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                        {appUrl}
+                        <ExternalLink className="h-4 w-4" />
+                    </Link>
+                )
             )}
           </CardContent>
         </Card>
