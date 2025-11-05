@@ -3,15 +3,14 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePersona } from "@/context/persona-context";
-import { Building, Plane, Ship, Warehouse } from 'lucide-react';
+import { Ship, Plane, Tornado } from 'lucide-react';
 import type { PersonaType } from "@/context/persona-context";
 
 
 const personaIcons: Record<PersonaType, React.ElementType> = {
   Port: Ship,
   Airport: Plane,
-  Factory: Warehouse,
-  Vessel: Building,
+  Disaster: Tornado,
 };
 
 type HeaderProps = {

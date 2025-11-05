@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useMemo } from 'react';
 import type { PersonaData } from '@/lib/types';
 import { personaData } from '@/lib/data';
 
-export type PersonaType = 'Port' | 'Airport' | 'Factory' | 'Vessel';
+export type PersonaType = 'Port' | 'Airport' | 'Disaster';
 
 type PersonaContextType = {
   personaType: PersonaType;

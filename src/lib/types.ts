@@ -28,4 +28,4 @@ export type DashboardStat = {
   icon: LucideIcon;
 };
 
-export type PersonaData = (typeof personaData)['Port'];
+export type PersonaData = (typeof personaData)['Port' | 'Airport' | 'Disaster'];

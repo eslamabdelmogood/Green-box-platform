@@ -2,14 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Wrench, BrainCircuit, Ship, Plane, Warehouse, Building } from 'lucide-react';
+import { LayoutDashboard, Wrench, BrainCircuit, Ship, Plane, Tornado } from 'lucide-react';
 
 import {
   SidebarHeader,
   SidebarContent,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons/logo';
@@ -26,8 +25,7 @@ const navItems = [
 const personaOptions: { value: PersonaType, label: string, icon: React.ElementType }[] = [
   { value: 'Port', label: 'Port', icon: Ship },
   { value: 'Airport', label: 'Airport', icon: Plane },
-  { value: 'Factory', label: 'Factory', icon: Warehouse },
-  { value: 'Vessel', label: 'Vessel', icon: Building },
+  { value: 'Disaster', label: 'Disaster', icon: Tornado },
 ];
 
 export function SidebarNav() {
@@ -46,7 +44,6 @@ export function SidebarNav() {
       </SidebarHeader>
       <SidebarContent>
         <div className="p-2 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:py-2">
-          <div className="px-2 pb-2 text-xs font-medium text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden">View As</div>
           <Select value={persona.type} onValueChange={(value: PersonaType) => setPersonaType(value)}>
             <SelectTrigger className="group-data-[collapsible=icon]:hidden">
               <SelectValue placeholder="Select Persona" />

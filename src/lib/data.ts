@@ -1,6 +1,6 @@
-import type { Part, Asset, DashboardStat } from '@/lib/types';
+import type { Part, Asset } from '@/lib/types';
 import type { PersonaType } from '@/context/persona-context';
-import { TrendingUp, Ship, Anchor, Warehouse, Plane, Factory, Container, Wrench } from 'lucide-react';
+import { TrendingUp, Ship, Anchor, Warehouse, Plane, Factory, Container, Wrench, Tornado, ShieldAlert } from 'lucide-react';
 
 export const parts: Part[] = [
   { id: 'part-001', name: 'Gantry Crane Motor', description: 'High-torque motor for quay cranes.', price: 15000.0, stock: 12, imageId: 'part-001' },
@@ -61,54 +61,30 @@ const airportData = {
   ],
 };
 
-const factoryData = {
-  title: 'Advanced Robotics Factory',
-  spendTitle: 'Maintenance Spend Overview',
-  assetStatusTitle: 'Production Line Status',
+const disasterData = {
+  title: 'Disaster Response Zone',
+  spendTitle: 'Relief Spend Overview',
+  assetStatusTitle: 'Critical Asset Status',
   dashboardStats: [
-    { title: 'Production Output', value: '25,000 units', change: '+10%', changeType: 'increase', icon: TrendingUp },
-    { title: 'Overall Equipment Effectiveness', value: '88%', change: '+2%', changeType: 'increase', icon: Factory },
-    { title: 'Downtime', value: '12h', change: '-15%', changeType: 'decrease', icon: Wrench },
-    { title: 'Energy Consumption', value: '45 MWh', change: '-5%', changeType: 'decrease', icon: Warehouse },
+    { title: 'Affected Population', value: '1.2M', change: '', changeType: 'increase', icon: TrendingUp },
+    { title: 'Resources Deployed', value: '5,000+', change: '', changeType: 'increase', icon: Tornado },
+    { title: 'Infrastructure Integrity', value: '45%', change: '', changeType: 'decrease', icon: ShieldAlert },
+    { title: 'Comms Network', value: '60% Online', change: '', changeType: 'increase', icon: Wrench },
   ],
   machineStatusData: [
-    { id: 'asset-01', name: 'CNC Mill A-1', location: 'Line 1', status: 'Operational', lastService: '2024-06-05' },
-    { id: 'asset-02', name: 'Welding Robot B-3', location: 'Line 2', status: 'Operational', lastService: '2024-06-12' },
-    { id: 'asset-03', name: 'Assembly Conveyor', location: 'Line 3', status: 'Operational', lastService: '2024-06-20' },
-    { id: 'asset-04', name: 'Quality Check Vision System', location: 'Final Inspection', status: 'Operational', lastService: '2024-06-25' },
+    { id: 'asset-01', name: 'Mobile Comms Tower', location: 'Zone A', status: 'Operational', lastService: '2024-06-10' },
+    { id: 'asset-02', name: 'Water Purification Unit', location: 'Shelter B', status: 'Operational', lastService: '2024-06-18' },
+    { id: 'asset-03', name: 'Heavy-Duty Generator', location: 'Medical Tent', status: 'Operational', lastService: '2024-05-30' },
   ],
   procurementData: [
-    { month: "Jan", cost: 45000 }, { month: "Feb", cost: 52000 }, { month: "Mar", cost: 48000 },
-    { month: "Apr", cost: 65000 }, { month: "May", cost: 70000 }, { month: "Jun", cost: 60000 },
-  ],
-};
-
-const vesselData = {
-  title: 'Vessel "Starlight Voyager"',
-  spendTitle: 'Voyage Spend Overview',
-  assetStatusTitle: 'Onboard Equipment Status',
-  dashboardStats: [
-    { title: 'Fuel Efficiency', value: '18.5 NM/ton', change: '+1.2%', changeType: 'increase', icon: TrendingUp },
-    { title: 'ETA', value: 'July 15, 14:00 UTC', change: '', changeType: 'increase', icon: Anchor },
-    { title: 'Engine Performance', value: 'Optimal', change: '', changeType: 'increase', icon: Wrench },
-    { title: 'Reefer Containers Online', value: '150 / 150', change: '', changeType: 'increase', icon: Container },
-  ],
-  machineStatusData: [
-    { id: 'asset-01', name: 'Main Engine', location: 'Engine Room', status: 'Operational', lastService: '2024-05-10' },
-    { id: 'asset-02', name: 'Generator #2', location: 'Engine Room', status: 'Operational', lastService: '2024-06-01' },
-    { id: 'asset-03', name: 'Ballast Pump', location: 'Pump Room', status: 'Operational', lastService: '2024-06-15' },
-    { id: 'asset-04', name: 'Navigation Radar', location: 'Bridge', status: 'Operational', lastService: '2024-06-20' },
-  ],
-  procurementData: [
-    { month: "Jan", cost: 210000 }, { month: "Feb", cost: 195000 }, { month: "Mar", cost: 230000 },
-    { month: "Apr", cost: 220000 }, { month: "May", cost: 240000 }, { month: "Jun", cost: 235000 },
+    { month: "Jan", cost: 350000 }, { month: "Feb", cost: 410000 }, { month: "Mar", cost: 505000 },
+    { month: "Apr", cost: 630000 }, { month: "May", cost: 740000 }, { month: "Jun", cost: 825000 },
   ],
 };
 
 
-export const personaData: Record<PersonaType, typeof portData> = {
+export const personaData: Record<PersonaType, Omit<typeof portData, 'machineStatusData' | 'procurementData'> & {machineStatusData: Asset[], procurementData: {month: string, cost: number}[]}> = {
   Port: portData,
   Airport: airportData,
-  Factory: factoryData,
-  Vessel: vesselData,
+  Disaster: disasterData,
 };
