@@ -9,7 +9,7 @@ import NodeStatusCard from '@/components/dashboard/node-status-card';
 import { AlertTriangle, Bot, Gauge, Signal } from 'lucide-react';
 
 const newDashboardStats = [
-  { title: 'Active Green Box Nodes', value: '45/50', change: 'Total Operational', changeType: 'increase', icon: Bot },
+  { title: 'Active Green Box Nodes', value: '45/50', change: 'Total Operational', changeType: 'increase', icon: Bot, href: '/nodes' },
   { title: 'New Predictive Alerts (24h)', value: '5', change: 'Requires Attention', changeType: 'decrease', icon: AlertTriangle },
   { title: 'Average MTTR', value: '18 min', change: 'Mean Time To Repair', changeType: 'increase', icon: Gauge },
   { title: 'Overall System Uptime', value: '99.9%', change: 'Last 30 Days', changeType: 'increase', icon: Signal },

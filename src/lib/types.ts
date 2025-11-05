@@ -25,6 +25,7 @@ export type DashboardStat = {
   change: string;
   changeType: "increase" | "decrease";
   icon: LucideIcon;
+  href?: string;
 };
 
 export type CriticalAlert = {
@@ -38,4 +39,10 @@ export type CriticalAlert = {
     seconds: number;
     nanoseconds: number;
   };
+};
+
+export type GreenBoxNode = {
+  id: string;
+  location: string;
+  status: "Active" | "Inactive";
 };

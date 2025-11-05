@@ -1,10 +1,12 @@
+import Link from 'next/link';
 import type { DashboardStat } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-export default function StatsCard({ title, value, change, changeType, icon: Icon }: DashboardStat) {
+export default function StatsCard({ title, value, change, changeType, icon: Icon, href }: DashboardStat) {
   const isIncrease = changeType === 'increase';
-  return (
+  
+  const cardContent = (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
@@ -18,9 +20,19 @@ export default function StatsCard({ title, value, change, changeType, icon: Icon
             isIncrease ? 'text-green-500' : 'text-red-500'
           )}
         >
-          {change} from last month
+          {change}
         </p>
       </CardContent>
     </Card>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="transition-all hover:scale-[1.02]">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }
