@@ -7,6 +7,8 @@ import Header from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 export default function SharePage() {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -50,9 +52,19 @@ export default function SharePage() {
                 />
               )}
             </div>
-            <p className="text-sm text-muted-foreground break-all">
-                {isLoading ? 'Generating QR code...' : appUrl}
-            </p>
+            {isLoading ? (
+                <p className="text-sm text-muted-foreground">Generating QR code...</p>
+            ) : (
+                <Link
+                    href={appUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                >
+                    {appUrl}
+                    <ExternalLink className="h-4 w-4" />
+                </Link>
+            )}
           </CardContent>
         </Card>
       </main>
