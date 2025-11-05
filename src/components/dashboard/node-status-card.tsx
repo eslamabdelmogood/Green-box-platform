@@ -11,7 +11,18 @@ export default function NodeStatusCard() {
   const [lastUpdate, setLastUpdate] = useState('');
 
   useEffect(() => {
-    setLastUpdate(new Date().toLocaleTimeString());
+    const updateTimestamp = () => {
+      setLastUpdate(new Date().toLocaleTimeString());
+    };
+    
+    // Update initially
+    updateTimestamp();
+
+    // Set up an interval to update every 30 seconds
+    const intervalId = setInterval(updateTimestamp, 30000);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
   
   return (
@@ -21,7 +32,7 @@ export default function NodeStatusCard() {
             <Rss className="h-5 w-5 text-primary" />
             Balloon Node Status
         </CardTitle>
-        <Button variant="ghost" size="icon" className="h-6 w-6">
+        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setLastUpdate(new Date().toLocaleTimeString())}>
             <RefreshCw className="h-4 w-4" />
         </Button>
       </CardHeader>
