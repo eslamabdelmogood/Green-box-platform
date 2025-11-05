@@ -6,9 +6,14 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, RefreshCw, Rss, Wifi } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/context/language-context';
+import { translations } from '@/lib/translations';
+
 
 export default function NodeStatusCard() {
   const [lastUpdate, setLastUpdate] = useState('');
+  const { language } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     const updateTimestamp = () => {
@@ -30,7 +35,7 @@ export default function NodeStatusCard() {
       <CardHeader className="flex flex-row items-center justify-between pb-4">
         <CardTitle className="text-lg flex items-center gap-2">
             <Rss className="h-5 w-5 text-primary" />
-            Balloon Node Status
+            {t['Balloon Node Status']}
         </CardTitle>
         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setLastUpdate(new Date().toLocaleTimeString())}>
             <RefreshCw className="h-4 w-4" />

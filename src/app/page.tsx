@@ -7,15 +7,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ActiveAlertsTable from '@/components/dashboard/active-alerts-table';
 import NodeStatusCard from '@/components/dashboard/node-status-card';
 import { AlertTriangle, Bot, Gauge, Signal } from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
+import { translations } from '@/lib/translations';
 
-const newDashboardStats = [
-  { title: 'Active Green Box Nodes', value: '45/50', change: 'Total Operational', changeType: 'increase', icon: Bot, href: '/nodes' },
-  { title: 'New Predictive Alerts (24h)', value: '5', change: 'Requires Attention', changeType: 'decrease', icon: AlertTriangle, href: '/live-alerts' },
-  { title: 'Average MTTR', value: '18 min', change: 'Mean Time To Repair', changeType: 'increase', icon: Gauge },
-  { title: 'Overall System Uptime', value: '99.9%', change: 'Last 30 Days', changeType: 'increase', icon: Signal },
-];
 
 export default function DashboardPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  const newDashboardStats = [
+    { title: 'Active Green Box Nodes', value: '45/50', change: 'Total Operational', changeType: 'increase', icon: Bot, href: '/nodes' },
+    { title: 'New Predictive Alerts (24h)', value: '5', change: 'Requires Attention', changeType: 'decrease', icon: AlertTriangle, href: '/live-alerts' },
+    { title: 'Average MTTR', value: '18 min', change: 'Mean Time To Repair', changeType: 'increase', icon: Gauge },
+    { title: 'Overall System Uptime', value: '99.9%', change: 'Last 30 Days', changeType: 'increase', icon: Signal },
+  ];
   
   return (
     <MainLayout>
@@ -29,7 +34,7 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>Active Predictive Alerts</CardTitle>
+              <CardTitle>{t['Active Predictive Alerts']}</CardTitle>
             </CardHeader>
             <CardContent>
               <ActiveAlertsTable />
