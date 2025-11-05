@@ -28,14 +28,12 @@ export type ConversationalMaintenanceOutput = z.infer<typeof ConversationalMaint
 
 
 export async function conversationalMaintenanceAdvisor(input: ConversationalMaintenanceInput): Promise<ConversationalMaintenanceOutput> {
-  return conversationalMaintenanceFlow(input);
-}
-
-const prompt = ai.definePrompt({
-  name: 'conversationalMaintenancePrompt',
-  input: { schema: ConversationalMaintenanceInputSchema },
-  output: { format: 'text' },
-  prompt: `You are an expert industrial maintenance technician acting as a helpful AI assistant. Your goal is to help the user diagnose and solve an equipment problem through conversation.
+    
+  const prompt = ai.definePrompt({
+    name: 'conversationalMaintenancePrompt',
+    input: { schema: ConversationalMaintenanceInputSchema },
+    output: { format: 'text' },
+    prompt: `You are an expert industrial maintenance technician acting as a helpful AI assistant. Your goal is to help the user diagnose and solve an equipment problem through conversation.
 
 You have been given the following context about the equipment and the initial problem:
 - Equipment Type: {{{equipmentType}}}
@@ -47,16 +45,19 @@ The user has started a conversation with you. Here is the history of your conver
 {{/each}}
 
 Based on this conversation, provide a helpful, concise, and technically accurate response to the user's last message. Be friendly and conversational. If you need more information, ask clarifying questions. If you can suggest a solution, provide clear, step-by-step instructions. If you identify a required part, state it clearly.`,
-});
+  });
 
-const conversationalMaintenanceFlow = ai.defineFlow(
-  {
-    name: 'conversationalMaintenanceFlow',
-    inputSchema: ConversationalMaintenanceInputSchema,
-    outputSchema: ConversationalMaintenanceOutputSchema,
-  },
-  async (input) => {
-    const { output } = await prompt(input);
-    return output!;
-  }
-);
+  const conversationalMaintenanceFlow = ai.defineFlow(
+    {
+      name: 'conversationalMaintenanceFlow',
+      inputSchema: ConversationalMaintenanceInputSchema,
+      outputSchema: ConversationalMaintenanceOutputSchema,
+    },
+    async (input) => {
+      const { output } = await prompt(input);
+      return output!;
+    }
+  );
+
+  return conversationalMaintenanceFlow(input);
+}
