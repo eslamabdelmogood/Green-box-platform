@@ -4,7 +4,7 @@
 import { useParams } from 'next/navigation';
 import MainLayout from '@/components/layout/main-layout';
 import Header from '@/components/layout/header';
-import { suppliers, partSuppliers } from '@/lib/data';
+import { suppliers, partSuppliers, parts } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Globe, Clock, DollarSign, ListChecks, ShoppingCart } from 'lucide-react';
@@ -15,13 +15,12 @@ export default function SupplierPage() {
   const { toast } = useToast();
   const partName = decodeURIComponent(params.partName as string);
 
-  const relevantPartSuppliers = partSuppliers.filter(ps => {
-    // This is a simplified lookup. A real app might use part IDs.
-    const partNameFromId = ps.partId.split('-').slice(1).join(' ').replace(/\b\w/g, l => l.toUpperCase());
-    // A more robust solution would be to find the part in the `parts` array first.
-    // For this example, we find a part whose name is contained in the `partName`
-    return partName.toLowerCase().includes(partNameFromId.toLowerCase());
-  });
+  // Find the part ID from the part name
+  const part = parts.find(p => p.name.toLowerCase() === partName.toLowerCase());
+  
+  // Find all supplier relationships for that part ID
+  const relevantPartSuppliers = part ? partSuppliers.filter(ps => ps.partId === part.id) : [];
+
 
   const handleBuy = (supplierName: string) => {
     toast({
