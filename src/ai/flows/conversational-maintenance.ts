@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -16,14 +17,14 @@ const MessageSchema = z.object({
   content: z.string(),
 });
 
-export const ConversationalMaintenanceInputSchema = z.object({
+const ConversationalMaintenanceInputSchema = z.object({
   equipmentType: z.string().describe('The type of equipment experiencing the problem.'),
   problemDescription: z.string().describe('The initial, detailed description of the problem.'),
   history: z.array(MessageSchema).describe('The history of the conversation so far.'),
 });
 export type ConversationalMaintenanceInput = z.infer<typeof ConversationalMaintenanceInputSchema>;
 
-export const ConversationalMaintenanceOutputSchema = z.string().describe("The model's response to the user's message.");
+const ConversationalMaintenanceOutputSchema = z.string().describe("The model's response to the user's message.");
 export type ConversationalMaintenanceOutput = z.infer<typeof ConversationalMaintenanceOutputSchema>;
 
 
