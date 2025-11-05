@@ -16,12 +16,12 @@ export default function SharePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Use a publicly accessible URL for the QR code.
-    const publicUrl = 'https://app.studio.dev';
-    setAppUrl(publicUrl);
+    // This will run on the client side, so window is available.
+    const currentUrl = window.location.href;
+    setAppUrl(currentUrl);
     
     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(
-      publicUrl
+      currentUrl
     )}`;
     setQrCodeUrl(qrApiUrl);
     setIsLoading(false);
