@@ -166,7 +166,7 @@ export default function MaintenanceAdvisorForm({ initialEquipmentType = '', init
                           <div className='flex items-center justify-between'>
                             <p className="text-lg font-semibold">{result.requiredPart}</p>
                             <Button asChild variant="outline" size="sm">
-                              <Link href={`/ai-tools?tab=recommender&partName=${encodeURIComponent(result.requiredPart)}`}>
+                              <Link href={`/suppliers/${encodeURIComponent(result.requiredPart)}`}>
                                 <Truck className="mr-2 h-4 w-4" />
                                 Find Supplier
                               </Link>
@@ -174,10 +174,4 @@ export default function MaintenanceAdvisorForm({ initialEquipmentType = '', init
                           </div>
                       </div>
                     )}
-                </div>
-            )}
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
+                

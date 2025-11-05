@@ -61,7 +61,7 @@ export default function PartCard({ part }: PartCardProps) {
               Buy Now
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link href={`/ai-tools?tab=recommender&partName=${encodeURIComponent(part.name)}`}>
+              <Link href={`/suppliers/${encodeURIComponent(part.name)}`}>
                 <Truck className="mr-2 h-4 w-4" />
                 Find Supplier
               </Link>
