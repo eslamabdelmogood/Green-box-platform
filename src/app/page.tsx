@@ -3,7 +3,6 @@
 import MainLayout from '@/components/layout/main-layout';
 import Header from '@/components/layout/header';
 import StatsCard from '@/components/dashboard/stats-card';
-import { usePersona } from '@/context/persona-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ActiveAlertsTable from '@/components/dashboard/active-alerts-table';
 import NodeStatusCard from '@/components/dashboard/node-status-card';
@@ -17,7 +16,6 @@ const newDashboardStats = [
 ];
 
 export default function DashboardPage() {
-  const { persona } = usePersona();
   
   return (
     <MainLayout>

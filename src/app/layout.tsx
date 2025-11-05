@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { PersonaProvider } from '@/context/persona-context';
 
 export const metadata: Metadata = {
   title: 'Green Box',
@@ -21,9 +20,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <PersonaProvider>
-          {children}
-        </PersonaProvider>
+        {children}
         <Toaster />
       </body>
     </html>
