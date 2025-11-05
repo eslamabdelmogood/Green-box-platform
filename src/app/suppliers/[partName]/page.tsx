@@ -7,8 +7,9 @@ import Header from '@/components/layout/header';
 import { suppliers, partSuppliers, parts } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Globe, Clock, DollarSign, ListChecks, ShoppingCart } from 'lucide-react';
+import { Globe, Clock, DollarSign, ListChecks, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 export default function SupplierPage() {
   const params = useParams();
@@ -32,7 +33,13 @@ export default function SupplierPage() {
   return (
     <MainLayout>
       <Header title={`Suppliers for ${partName}`} />
-      <main className="flex-1 space-y-6 p-4 md:p:8">
+      <main className="flex-1 space-y-6 p-4 md:p-8">
+        <Button asChild variant="outline">
+          <Link href="/">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Dashboard
+          </Link>
+        </Button>
         {relevantPartSuppliers.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {relevantPartSuppliers.map(ps => {

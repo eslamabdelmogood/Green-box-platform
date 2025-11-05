@@ -8,7 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function SharePage() {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -30,7 +31,15 @@ export default function SharePage() {
   return (
     <MainLayout>
       <Header title="Share App" />
-      <main className="flex-1 flex items-center justify-center p-4 md:p-8">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 space-y-4">
+        <div className="w-full max-w-md">
+            <Button asChild variant="outline">
+              <Link href="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Dashboard
+              </Link>
+            </Button>
+        </div>
         <Card className="w-full max-w-md text-center">
           <CardHeader>
             <CardTitle className="text-2xl">Scan to View</CardTitle>
