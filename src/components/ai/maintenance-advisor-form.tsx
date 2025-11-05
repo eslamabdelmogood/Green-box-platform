@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,7 +28,12 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function MaintenanceAdvisorForm() {
+type MaintenanceAdvisorFormProps = {
+  initialEquipmentType?: string;
+  initialProblemDescription?: string;
+};
+
+export default function MaintenanceAdvisorForm({ initialEquipmentType = '', initialProblemDescription = '' }: MaintenanceAdvisorFormProps) {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<MaintenanceAdvisorOutput | null>(null);
   const { toast } = useToast();
@@ -36,10 +41,20 @@ export default function MaintenanceAdvisorForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      equipmentType: 'Welding Robot B-3',
-      problemDescription: 'The robot arm is moving erratically and failing to complete welds accurately. Making a clicking sound on the main joint.',
+      equipmentType: initialEquipmentType || 'Welding Robot B-3',
+      problemDescription: initialProblemDescription || 'The robot arm is moving erratically and failing to complete welds accurately. Making a clicking sound on the main joint.',
     },
   });
+
+  useEffect(() => {
+    if (initialEquipmentType) {
+      form.setValue('equipmentType', initialEquipmentType);
+    }
+    if (initialProblemDescription) {
+      form.setValue('problemDescription', initialProblemDescription);
+    }
+  }, [initialEquipmentType, initialProblemDescription, form]);
+
 
   const onSubmit = (values: FormValues) => {
     startTransition(async () => {

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   Table,
   TableBody,
@@ -51,6 +52,9 @@ export default function ActiveAlertsTable() {
         {alerts.map((alert) => {
             const config = priorityConfig[alert.priority];
             const Icon = config.icon;
+            const problemDescription = `A ${alert.priority} alert has been triggered for the ${alert.system}. Predicted time to failure is approximately ${alert.timeToFailure.toFixed(2)} hours. Please advise on necessary actions and parts.`;
+            const advisorUrl = `/ai-tools?tab=advisor&equipmentType=${encodeURIComponent(alert.system)}&problemDescription=${encodeURIComponent(problemDescription)}`;
+
             return (
                 <TableRow key={alert.id}>
                     <TableCell className="font-medium">{alert.id}</TableCell>
@@ -65,9 +69,11 @@ export default function ActiveAlertsTable() {
                     </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                    <Button variant="outline" size="sm">
+                    <Button asChild variant="outline" size="sm">
+                      <Link href={advisorUrl}>
                         <Bot className="mr-2 h-4 w-4" />
                         View in AI Assistant
+                      </Link>
                     </Button>
                     </TableCell>
                 </TableRow>

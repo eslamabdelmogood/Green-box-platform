@@ -12,6 +12,8 @@ function AIToolsContent() {
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab') || 'advisor';
   const partName = searchParams.get('partName') || '';
+  const equipmentType = searchParams.get('equipmentType') || '';
+  const problemDescription = searchParams.get('problemDescription') || '';
 
   return (
     <MainLayout>
@@ -23,7 +25,10 @@ function AIToolsContent() {
             <TabsTrigger value="recommender">Supplier Recommender</TabsTrigger>
           </TabsList>
           <TabsContent value="advisor" className="space-y-4">
-            <MaintenanceAdvisorForm />
+            <MaintenanceAdvisorForm
+              initialEquipmentType={equipmentType}
+              initialProblemDescription={problemDescription}
+            />
           </TabsContent>
           <TabsContent value="recommender" className="space-y-4">
             <SupplierRecommenderForm initialPartName={partName} />
